@@ -12,5 +12,8 @@ const Poster = styled.div`
     img{
         width: 130px;
         height: 195px;
+        padding: 15px;
+        border: 1px solid black;
+        border-radius: 5px;
     }
 `;
