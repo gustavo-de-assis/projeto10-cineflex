@@ -28,6 +28,8 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
+        width: 375px;
+        height: 880px;
     }
     ol, ul {
         list-style: none;

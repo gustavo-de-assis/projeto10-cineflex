@@ -1,15 +1,18 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import Rodape from "./Rodape";
 
 export default function Sessoes() {
     const {idFilme} = useParams();
+    const [filme, setFilme] = useState({});
     
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`
         axios.get(URL).then((ans) => {
             console.log(ans.data)
+            setFilme(ans.data);
         }).catch((err) => { console.log(err.response.data.message) })
     }, []);
     
@@ -31,6 +34,7 @@ export default function Sessoes() {
                     <Horario> 19:00</Horario>
                 </Horarios>
             </div>
+            <Rodape filme={filme}/>
         </LayoutSessao>
     )
 }

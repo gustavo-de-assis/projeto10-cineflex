@@ -39,8 +39,6 @@ export default function Catalogo() {
 }
 
 const Filmes = styled.div`
-    width: 375px;
-    height: 880px;
     
     display: flex;
     flex-flow: row wrap;
@@ -49,8 +47,7 @@ const Filmes = styled.div`
     overflow: scroll;
 `
 const Loading = styled.div`
-    width: 375px;
-    height: 880px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
