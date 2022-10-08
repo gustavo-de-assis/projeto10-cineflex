@@ -1,39 +1,35 @@
 import styled from "styled-components";
 
 export default function Assentos(){
+    const assentos = [];
 
+    for(let i = 1; i <= 50; i++){
+        assentos.push(i);
+    }
+
+    
     return(
         <LayoutAssentos>
             <h1>Selecione o(s) assento(s)</h1>
             <ul>
-                <Assento>1</Assento>
-                <Assento>2</Assento>
-                <Assento>3</Assento>
-                <Assento>4</Assento>
-                <Assento>5</Assento>
-                <Assento>6</Assento>
-                <Assento>7</Assento>
-                <Assento>8</Assento>
-                <Assento>9</Assento>
-                <Assento>1</Assento>
-                <Assento>2</Assento>
-                <Assento>3</Assento>
-                <Assento>4</Assento>
-                <Assento>5</Assento>
-                <Assento>6</Assento>
-                <Assento>7</Assento>
-                <Assento>8</Assento>
-                <Assento>9</Assento>
-                <Assento>1</Assento>
-                <Assento>2</Assento>
-                <Assento>3</Assento>
-                <Assento>4</Assento>
-                <Assento>5</Assento>
-                <Assento>6</Assento>
-                <Assento>7</Assento>
-                <Assento>8</Assento>
-                <Assento>9</Assento>                
+                {assentos.map((item, i)=> <Assento>{item}</Assento>)}          
             </ul>
+            
+            <LegendaAssentos>
+                <div>
+                    <p>Selecionado</p>
+                    <Assento style={{ background: "#33cc44"}} />
+                </div>
+                <div>
+                    <p>Disponivel</p>
+                    <Assento />
+
+                </div>
+                <div>
+                    <p>Indisponivel</p>
+                    <Assento style={{ background: "#cc3344"}} />
+                </div>
+            </LegendaAssentos>
 
             <form>
                 <label >Nome do Comprador</label>
@@ -42,6 +38,7 @@ export default function Assentos(){
                 <input id="CPF" name="cpf"></input>
              
             </form>
+            
 
         </LayoutAssentos>
     )
@@ -61,6 +58,18 @@ const LayoutAssentos = styled.div`
         margin: 5px;
         gap: 10px;
     }
+`
+const LegendaAssentos = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 5px;
+    padding: 5px;
+
+    gap: 5px;
+
 `
 const Assento = styled.li`
     width: 25px;

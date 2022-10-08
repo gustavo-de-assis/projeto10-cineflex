@@ -13,7 +13,12 @@ const Poster = styled.div`
         width: 130px;
         height: 195px;
         padding: 15px;
-        border: 1px solid black;
-        border-radius: 5px;
+        border-radius: 3px;
+        box-shadow: 0 2px 4px 2px rgba(0,0,0,0.3);
+        :hover{
+            opacity: 0.8;
+            background-color: #ddd;
+        }
+
     }
 `;

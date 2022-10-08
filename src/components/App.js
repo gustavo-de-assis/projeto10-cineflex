@@ -15,8 +15,8 @@ export default function App(){
             <Topo/>
             <Routes>
                 <Route path="/" element={<Catalogo/>} />
-                <Route path="/sessoes" element={<Sessoes/> } />
-                <Route path="/assentos" element={<Assentos/> } />
+                <Route path="/sessoes/:idFilme" element={<Sessoes/> } />
+                <Route path="/assentos/:idSessao" element={<Assentos/> } />
                 <Route path="/ingresso" element={<Finalizar/>} />
             </Routes>
         </BrowserRouter>
