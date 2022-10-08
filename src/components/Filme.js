@@ -1,5 +1,8 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 export default function Filme({imagem, titulo}){
+
+
     return (
         <Poster>
             <img src={imagem} alt={titulo}/>

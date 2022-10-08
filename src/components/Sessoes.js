@@ -1,6 +1,19 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Sessoes() {
+    const {idFilme} = useParams();
+    
+    useEffect(() => {
+        const URL = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`
+        axios.get(URL).then((ans) => {
+            console.log(ans.data)
+        }).catch((err) => { console.log(err.response.data.message) })
+    }, []);
+    
+    
     return (
         <LayoutSessao>
             <h1> Selecione o Horario</h1>

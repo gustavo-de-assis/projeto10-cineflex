@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import imgCarregando from "../assets/img/rolo-filme.gif"
 
 import Filme from "./Filme";
 
@@ -14,22 +16,22 @@ export default function Catalogo() {
         }).catch((err) => { console.log(err.response.data) })
     }, []);
 
-    if(listaFilmes === false || listaFilmes.length === 0){
-        return(<>
-            Carregando...
-        </>)
+    if (listaFilmes === false || listaFilmes.length === 0) {
+        return (<Loading>
+            <p>Carregando...</p>
+            <img src={imgCarregando} alt="Carregando" />
+        </Loading>)
     }
-
-    console.log(listaFilmes);
 
     return (
         <Filmes>
-               {listaFilmes.map((item) => 
-                <Filme
-                    key={item.id}
-                    imagem={item.posterURL}
-                    titulo={item.title} />
-            
+            {listaFilmes.map((item) =>
+                <Link to={`/sessoes/${item.id}`}>
+                    <Filme
+                        key={item.id}
+                        imagem={item.posterURL}
+                        titulo={item.title} />
+                </Link>
             )
             }
         </Filmes>
@@ -46,5 +48,16 @@ const Filmes = styled.div`
     justify-content: center;
     overflow: scroll;
 `
-
-
+const Loading = styled.div`
+    width: 375px;
+    height: 880px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img{
+        aspect-ratio: 16/9;
+        width: 200px;
+        margin: 60px;
+    }
+`
