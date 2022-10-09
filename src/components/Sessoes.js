@@ -3,38 +3,42 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Rodape from "./Rodape";
+import Sessao from "./Sessao";
+import imgCarregando from "../assets/img/rolo-filme.gif"
+
 
 export default function Sessoes() {
-    const {idFilme} = useParams();
-    const [filme, setFilme] = useState({});
-    
+    const { idFilme } = useParams();
+    const [filme, setFilme] = useState([]);
+
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`
         axios.get(URL).then((ans) => {
-            console.log(ans.data)
             setFilme(ans.data);
         }).catch((err) => { console.log(err.response.data.message) })
     }, []);
-    
-    
+
+    if (filme.length === 0){
+        return (<Loading>
+            <p>Carregando...</p>
+            <img src={imgCarregando} alt="Carregando" />
+        </Loading>)
+    }
+
     return (
         <LayoutSessao>
             <h1> Selecione o Horario</h1>
-            <p>Quinta Feira, 24/09/2022</p>
-            <div>
-                <Horarios>
-                    <Horario> 15:00</Horario>
-                    <Horario> 19:00</Horario>
-                </Horarios>
-            </div>
-            <p>Sexta Feira, 25/09/2022</p>
-            <div>
-                <Horarios>
-                    <Horario> 15:00</Horario>
-                    <Horario> 19:00</Horario>
-                </Horarios>
-            </div>
-            <Rodape filme={filme}/>
+            { filme.days.map((item) => 
+                <Sessao
+                    key={item.id}
+                    weekday={item.weekday}
+                    date={item.date}
+                    showtimes={item.showtimes}
+                />
+            )
+            }
+
+            <Rodape filme={filme} />
         </LayoutSessao>
     )
 }
@@ -48,19 +52,15 @@ const LayoutSessao = styled.div`
     align-items: center;
 
 `
-const Horarios = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-
-const Horario = styled.button`
-    width: 150px;
-    height: 70px;
+const Loading = styled.div`
 
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    background-color: orange;
-
-    margin: 15px;
+    align-items: center;
+    img{
+        aspect-ratio: 16/9;
+        width: 200px;
+        margin: 60px;
+    }
 `

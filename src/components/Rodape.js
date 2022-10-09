@@ -22,7 +22,7 @@ const LayoutRodape = styled.div`
     
     position: fixed;
     bottom: 0;
-    right: 0;
+    left: 0;
     
     img{
         height: 100%;
@@ -34,5 +34,5 @@ const LayoutRodape = styled.div`
 const Textos = styled.div`
     display: flex;
     align-items: center;
-        margin: auto;
+    margin: auto;
 `
