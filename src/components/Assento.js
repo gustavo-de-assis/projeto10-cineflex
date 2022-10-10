@@ -3,27 +3,35 @@ import styled from "styled-components"
 
 
 export default function Assento(props) {
-    const {id, name, isAvailable, escolhidos, setEscolhidos} = props;
+    const {id, name, isAvailable, escolhidos, setEscolhidos, infoFinalizado, setInfoFinalizado} = props;
+
+    const numAssentos = infoFinalizado.assentos;
 
     const[corCadeira, setCorCadeira] = useState('#3546ee');
     
-    function selecionaCadeira(id){
-        let idsEscolhidos; 
+    function selecionaCadeira(id, name){
+        let idsEscolhidos;
+        let numEscolhidos;
+
         if(escolhidos.includes(id)){
            idsEscolhidos = escolhidos.filter((item)=> item !== id)
+           numEscolhidos = numAssentos.filter((item)=> item !== name)
            setCorCadeira('#3546ee');
         }else{
             idsEscolhidos = [...escolhidos, id];
+            numEscolhidos = [...numAssentos, name];
             setCorCadeira('#55ee66');
         }
-        setEscolhidos(idsEscolhidos)
-        console.log(idsEscolhidos);
+        setEscolhidos(idsEscolhidos);
+        setInfoFinalizado({...infoFinalizado, assentos: numEscolhidos});
+        console.log("ids",idsEscolhidos);
+        console.log("cadeiras",numEscolhidos);
     }
 
     return (
         <>
     { isAvailable ? 
-    <EstiloAssento color={corCadeira} onClick={()=>selecionaCadeira(id)}>
+    <EstiloAssento color={corCadeira} onClick={()=>selecionaCadeira(id,name)}>
         {name}
     </EstiloAssento>
     :

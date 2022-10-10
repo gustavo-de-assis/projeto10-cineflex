@@ -5,10 +5,11 @@ import styled from "styled-components";
 import Assento from "./Assento";
 import Rodape from "./Rodape";
 
-export default function Assentos() {
+export default function Assentos({infoFinalizado, setInfoFinalizado}) {
     const [assentos, setAssentos] = useState([]);
     const { idSessao } = useParams();
     const [escolhidos, setEscolhidos] = useState([]);
+    /* const [numAssentos, setNumAssentos] = useState([]); */
     const [comprador, setComprador] = useState("");
     const [cpfComprador, setCpfComprador] = useState("");
     const navigate = useNavigate();
@@ -16,8 +17,10 @@ export default function Assentos() {
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
         axios.get(URL).then((ans) => {
-            setAssentos(ans.data);
-        }).catch((err) => { console.log(err.response.data.message) })
+            const resposta = ans.data;
+            setAssentos(resposta);
+            setInfoFinalizado({...infoFinalizado, filme:resposta.movie.title, horario:resposta.name, data:resposta.day.date })
+        }).catch((err) => { alert(err.response.data.message) })
     }, []);
 
     if (assentos.length === 0) {
@@ -38,6 +41,14 @@ export default function Assentos() {
                 name: comprador,
                 cpf: cpfComprador
             }
+
+            const infoSessao = {...infoFinalizado,
+                 nome: solicitacao.name,
+                cpf: solicitacao.cpf}
+            
+            setInfoFinalizado(infoSessao);
+
+            console.log(infoSessao);
 
             const URL = `https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many`;
             axios.post(URL, solicitacao).then((ans) => {
@@ -63,6 +74,8 @@ export default function Assentos() {
                         name={a.name}
                         escolhidos={escolhidos}
                         setEscolhidos={setEscolhidos}
+                        infoFinalizado={infoFinalizado}
+                        setInfoFinalizado={setInfoFinalizado}
                     />)}
                 </ul>
                 <LegendaAssentos>

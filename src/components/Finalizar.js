@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function Finalizar(){
+export default function Finalizar({infoFinalizado}){
     return(
         <Fim>
             <div>
@@ -13,18 +13,18 @@ export default function Finalizar(){
                     Filme e Sessao
                 </h1>
                 <p>
-                    Blababla
+                    {infoFinalizado.filme}
                 </p>
-                <p>dia tal do tal a tal horas</p>
+                <p>{infoFinalizado.data} às {infoFinalizado.horario}</p>
             </div>
             <div>
                 <h1>Ingressos</h1>
-                <p>assento tal e tal</p>
+                {infoFinalizado.assentos.map((item)=><p>Assento: {item}</p>)}
             </div>
             <div>
                 <h1>Comprador</h1>
-                <p>Nome</p>
-                <p>cpf</p>
+                <p>{infoFinalizado.nome}</p>
+                <p>{infoFinalizado.cpf}</p>
             </div>
         </Fim>
     )
