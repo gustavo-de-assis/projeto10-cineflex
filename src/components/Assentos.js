@@ -8,6 +8,8 @@ export default function Assentos() {
     const [assentos, setAssentos] = useState([]);
     const { idSessao } = useParams();
     const [escolhidos, setEscolhidos] = useState([]);
+    const [comprador, setComprador] = useState("");
+    const [cpfComprador, setCpfComprador] = useState("");
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
@@ -21,6 +23,31 @@ export default function Assentos() {
             Carregando...
         </>)
     }
+
+    function reservaAssentos(e) {
+        e.preventDefault();
+        if (escolhidos.length === 0) {
+            alert("Por favor, escolha pelo menos 1 assento");
+            return;
+        }
+        else {
+            const solicitacao = {
+                ids: escolhidos,
+                name: comprador,
+                cpf: cpfComprador
+            }
+
+            const URL = `https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many`;
+            axios.post(URL, solicitacao).then((ans) => {
+                console.log("Sucesso:", ans.data)
+            }).catch((err) => {
+                 console.log(err.response.data.message) 
+            })
+
+            console.log("pedido: ", solicitacao)
+        }
+    }
+
 
     return (
         <>
@@ -54,19 +81,26 @@ export default function Assentos() {
             </LayoutAssentos>
 
             <Formulario>
-                <form>
+                <form onSubmit={reservaAssentos}>
                     <div>
                         <label >Nome do Comprador</label>
-                        <input name="name"></input>
+                        <input
+                            name="name"
+                            onChange={e => setComprador(e.target.value)}
+                            required></input>
                     </div>
                     <div>
-                        <label>CPF</label>
-                        <input id="CPF" name="cpf"></input>
+                        <label>CPF do Comprador</label>
+                        <input
+                            id="CPF"
+                            name="cpf"
+                            onChange={e => setCpfComprador(e.target.value)}
+                            required>
+                        </input>
                     </div>
-
+                    <button type="submit">Reservar Assentos</button>
                 </form>
             </Formulario>
-
 
         </>
     )
@@ -123,6 +157,22 @@ const Formulario = styled.div`
             display: flex;
             flex-direction: column;
             margin: 5px;
+        }
+        button{
+            width: 140px;
+            height: 50px;
+
+            border: 1px solid #7777cc;
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ee9955;   
+
+            :hover{
+                opacity: 0.7;
+            }
         }
     }
 `
