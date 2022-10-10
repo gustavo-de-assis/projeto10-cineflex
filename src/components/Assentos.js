@@ -7,6 +7,7 @@ import Assento from "./Assento";
 export default function Assentos() {
     const [assentos, setAssentos] = useState([]);
     const { idSessao } = useParams();
+    const [escolhidos, setEscolhidos] = useState([]);
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
@@ -31,33 +32,40 @@ export default function Assentos() {
                         id={a.id}
                         isAvailable={a.isAvailable}
                         name={a.name}
+                        escolhidos={escolhidos}
+                        setEscolhidos={setEscolhidos}
                     />)}
                 </ul>
                 <LegendaAssentos>
                     <div>
                         <p>Selecionado</p>
-                        <Cadeira color={'#55ee66'}/>
+                        <Cadeira color={'#55ee66'} />
                     </div>
                     <div>
                         <p>Disponivel</p>
-                        <Cadeira color={'#3546ee'}/>
+                        <Cadeira color={'#3546ee'} />
 
                     </div>
                     <div>
                         <p>Indisponivel</p>
-                        <Cadeira color={'#dd0033'}/>
+                        <Cadeira color={'#dd0033'} />
                     </div>
                 </LegendaAssentos>
             </LayoutAssentos>
 
+            <Formulario>
+                <form>
+                    <div>
+                        <label >Nome do Comprador</label>
+                        <input name="name"></input>
+                    </div>
+                    <div>
+                        <label>CPF</label>
+                        <input id="CPF" name="cpf"></input>
+                    </div>
 
-            <form>
-                <label >Nome do Comprador</label>
-                <input name="name"></input>
-                <label>CPF</label>
-                <input id="CPF" name="cpf"></input>
-
-            </form>
+                </form>
+            </Formulario>
 
 
         </>
@@ -101,4 +109,20 @@ const Cadeira = styled.div`
     border-radius: 50%;
     
     background-color: ${props => props.color === "" ? '' : props.color};
+`
+
+const Formulario = styled.div`
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        div{
+            width: 300px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            margin: 5px;
+        }
+    }
 `

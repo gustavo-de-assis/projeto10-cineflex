@@ -3,14 +3,21 @@ import styled from "styled-components"
 
 
 export default function Assento(props) {
-    const {id, name, isAvailable} = props;
+    const {id, name, isAvailable, escolhidos, setEscolhidos} = props;
 
     const[corCadeira, setCorCadeira] = useState('#3546ee');
-    const[escolhidos, setEscolhidos] = useState([]);
     
     function selecionaCadeira(id){
-        setCorCadeira('#55ee66');
-        setEscolhidos([...escolhidos, id])
+        let idsEscolhidos; 
+        if(escolhidos.includes(id)){
+           idsEscolhidos = escolhidos.filter((item)=> item !== id)
+           setCorCadeira('#3546ee');
+        }else{
+            idsEscolhidos = [...escolhidos, id];
+            setCorCadeira('#55ee66');
+        }
+        setEscolhidos(idsEscolhidos)
+        console.log(idsEscolhidos);
     }
 
     return (

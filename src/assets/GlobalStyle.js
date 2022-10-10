@@ -30,6 +30,8 @@ const GlobalStyle = createGlobalStyle`
         line-height: 1;
         width: 375px;
         height: 880px;
+
+        font-family: roboto;
     }
     ol, ul {
         list-style: none;
