@@ -15,7 +15,7 @@ export default function Sessoes() {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`
         axios.get(URL).then((ans) => {
             setFilme(ans.data);
-        }).catch((err) => { console.log(err.response.data.message) })
+        }).catch((err) => { alert(err.response.data.message) })
     }, []);
 
     if (filme.length === 0){

@@ -4,12 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Assento from "./Assento";
 import Rodape from "./Rodape";
+import imgCarregando from "../assets/img/rolo-filme.gif"
 
 export default function Assentos({infoFinalizado, setInfoFinalizado}) {
     const [assentos, setAssentos] = useState([]);
     const { idSessao } = useParams();
     const [escolhidos, setEscolhidos] = useState([]);
-    /* const [numAssentos, setNumAssentos] = useState([]); */
     const [comprador, setComprador] = useState("");
     const [cpfComprador, setCpfComprador] = useState("");
     const navigate = useNavigate();
@@ -22,12 +22,6 @@ export default function Assentos({infoFinalizado, setInfoFinalizado}) {
             setInfoFinalizado({...infoFinalizado, filme:resposta.movie.title, horario:resposta.name, data:resposta.day.date })
         }).catch((err) => { alert(err.response.data.message) })
     }, []);
-
-    if (assentos.length === 0) {
-        return (<>
-            Carregando...
-        </>)
-    }
 
     function reservaAssentos(e) {
         e.preventDefault();
@@ -43,30 +37,34 @@ export default function Assentos({infoFinalizado, setInfoFinalizado}) {
             }
 
             const infoSessao = {...infoFinalizado,
-                 nome: solicitacao.name,
-                cpf: solicitacao.cpf}
+                nome: solicitacao.name,
+                cpf: solicitacao.cpf
+            }
             
             setInfoFinalizado(infoSessao);
 
-            console.log(infoSessao);
-
             const URL = `https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many`;
             axios.post(URL, solicitacao).then((ans) => {
-                //enviar dados para a pag final
                 navigate("/ingresso")
             }).catch((err) => {
-                 console.log(err.response.data) 
+                 alert(err.response.data) 
             })
 
         }
     }
 
+    if (assentos.length === 0) {
+        return (<Loading>
+            <p>Carregando...</p>
+            <img src={imgCarregando} alt="Carregando" />
+        </Loading>)
+    }
 
     return (
         <>
             <LayoutAssentos>
                 <h1>Selecione o(s) assento(s)</h1>
-                <ul>
+                <ul >
                     {assentos.seats.map((a) => <Assento
                         key={a.id}
                         id={a.id}
@@ -76,21 +74,22 @@ export default function Assentos({infoFinalizado, setInfoFinalizado}) {
                         setEscolhidos={setEscolhidos}
                         infoFinalizado={infoFinalizado}
                         setInfoFinalizado={setInfoFinalizado}
+                        
                     />)}
                 </ul>
                 <LegendaAssentos>
                     <div>
                         <p>Selecionado</p>
-                        <Cadeira color={'#55ee66'} />
+                        <Cadeira color={'#1AAE9E'} />
                     </div>
                     <div>
                         <p>Disponivel</p>
-                        <Cadeira color={'#3546ee'} />
+                        <Cadeira color={'#C3CFD9'} />
 
                     </div>
                     <div>
                         <p>Indisponivel</p>
-                        <Cadeira color={'#dd0033'} />
+                        <Cadeira color={'#FBE192'} />
                     </div>
                 </LegendaAssentos>
             </LayoutAssentos>
@@ -102,7 +101,10 @@ export default function Assentos({infoFinalizado, setInfoFinalizado}) {
                         <input
                             name="name"
                             onChange={e => setComprador(e.target.value)}
-                            required></input>
+                            placeholder="Digite seu Nome"
+                            required
+                            >    
+                            </input>
                     </div>
                     <div>
                         <label>CPF do Comprador</label>
@@ -110,6 +112,8 @@ export default function Assentos({infoFinalizado, setInfoFinalizado}) {
                             id="CPF"
                             name="cpf"
                             onChange={e => setCpfComprador(e.target.value)}
+                            placeholder="Digite seu CPF..." 
+                            pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}"
                             required>
                         </input>
                     </div>
@@ -179,17 +183,29 @@ const Formulario = styled.div`
             width: 140px;
             height: 50px;
 
-            border: 1px solid #7777cc;
-            border-radius: 15px;
-
+            border-radius: 12px;
+            border-style: none;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #ee9955;   
+            background-color: #E8833A;   
 
             :hover{
                 opacity: 0.7;
             }
         }
+    }
+`
+const Loading = styled.div`
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img{
+        aspect-ratio: 16/9;
+        width: 200px;
+        margin: 60px;
     }
 `

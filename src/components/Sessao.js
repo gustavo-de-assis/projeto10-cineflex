@@ -3,8 +3,6 @@ import styled from "styled-components"
 
 export default function Sessao({ weekday, date, showtimes }) {
 
-
-
     return (<LayoutSessao>
         <p>{weekday}, {date}</p>
         <div>
@@ -42,14 +40,13 @@ const Horario = styled.div`
     width: 140px;
     height: 50px;
 
-    border: 3px solid #3344cc;
-    border-radius: 15px;
+    border-radius: 12px;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ee9955;   
-
+    background-color: #E8833A;   
+    color: #fff;
     :hover{
         opacity: 0.7;
     }

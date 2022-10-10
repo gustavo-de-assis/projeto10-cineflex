@@ -13,7 +13,7 @@ export default function Catalogo() {
         const URL = "https://mock-api.driven.com.br/api/v5/cineflex/movies"
         axios.get(URL).then((ans) => {
             setFilmes(ans.data)
-        }).catch((err) => { console.log(err.response.data) })
+        }).catch((err) => { alert(err.response.data.message) })
     }, []);
 
     if (listaFilmes === false || listaFilmes.length === 0) {
