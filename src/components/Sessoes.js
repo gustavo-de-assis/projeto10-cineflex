@@ -31,6 +31,7 @@ export default function Sessoes() {
             { filme.days.map((item) => 
                 <Sessao
                     key={item.id}
+                    id={item.id}
                     weekday={item.weekday}
                     date={item.date}
                     showtimes={item.showtimes}

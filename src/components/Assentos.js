@@ -1,18 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Assentos(){
-    const assentos = [];
+    const [assentos, setAssentos] = useState([]);
+    const {idSessao} = useParams();
 
-    for(let i = 1; i <= 50; i++){
-        assentos.push(i);
+    useEffect(() => {
+        const URL = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
+        axios.get(URL).then((ans) => {
+            setAssentos(ans.data);
+        }).catch((err) => { console.log(err.response.data.message) })
+    }, []);
+
+    if(assentos.length === 0){
+        return(<>
+            Carregando...
+        </>)
     }
+
 
     
     return(
         <LayoutAssentos>
             <h1>Selecione o(s) assento(s)</h1>
             <ul>
-                {assentos.map((item, i)=> <Assento>{item}</Assento>)}          
+                {assentos.seats.map((a)=> <Assento>{a.name}</Assento>)}
             </ul>
             
             <LegendaAssentos>

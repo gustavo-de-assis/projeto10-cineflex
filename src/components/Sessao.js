@@ -1,14 +1,19 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Sessao({weekday, date, showtimes}) {
+export default function Sessao({ weekday, date, showtimes}) {
 
 
 
     return (<>
-         <p>{weekday}, {date}</p>
+        <p>{weekday}, {date}</p>
         <div>
-             <Horarios>
-                 {showtimes.map((h) => <Horario> {h.name}</Horario>)}
+            <Horarios>
+                {showtimes.map((h) => <Horario>
+                    <Link to={`/assentos/${h.id}`}>
+                        {h.name}
+                    </Link>
+                </Horario>)}
             </Horarios>
         </div>
     </>)
