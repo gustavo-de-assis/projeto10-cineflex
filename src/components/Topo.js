@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function Topo(){
-    return(
+export default function Topo() {
+    return (
+
         <ItemTopo>
             CINEFLEX
         </ItemTopo>
+
     );
 }
 

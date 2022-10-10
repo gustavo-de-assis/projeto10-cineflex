@@ -22,32 +22,34 @@ export default function Assentos() {
     }
 
     return (
-        <LayoutAssentos>
-            <h1>Selecione o(s) assento(s)</h1>
-            <ul>
-                {assentos.seats.map((a) => <Assento
-                    key={a.id}
-                    id={a.id}
-                    isAvailable={a.isAvailable}
-                    name={a.name}
-                />)}
-            </ul>
+        <>
+            <LayoutAssentos>
+                <h1>Selecione o(s) assento(s)</h1>
+                <ul>
+                    {assentos.seats.map((a) => <Assento
+                        key={a.id}
+                        id={a.id}
+                        isAvailable={a.isAvailable}
+                        name={a.name}
+                    />)}
+                </ul>
+                <LegendaAssentos>
+                    <div>
+                        <p>Selecionado</p>
+                        <Cadeira color={'#55ee66'}/>
+                    </div>
+                    <div>
+                        <p>Disponivel</p>
+                        <Cadeira color={'#3546ee'}/>
 
-            <LegendaAssentos>
-                <div>
-                    <p>Selecionado</p>
-                    <Assento style={{ background: "#33cc44" }} />
-                </div>
-                <div>
-                    <p>Disponivel</p>
-                    <Assento />
+                    </div>
+                    <div>
+                        <p>Indisponivel</p>
+                        <Cadeira color={'#dd0033'}/>
+                    </div>
+                </LegendaAssentos>
+            </LayoutAssentos>
 
-                </div>
-                <div>
-                    <p>Indisponivel</p>
-                    <Assento style={{ background: "#cc3344" }} />
-                </div>
-            </LegendaAssentos>
 
             <form>
                 <label >Nome do Comprador</label>
@@ -58,17 +60,18 @@ export default function Assentos() {
             </form>
 
 
-        </LayoutAssentos>
+        </>
     )
 }
 
 const LayoutAssentos = styled.div`
-    width: 375px;
-    height: 880px;
-    
+    width: 375px;    
     display: flex;
     flex-direction: column;
     align-items: center;
+    h1{
+        margin: 10px;
+    }
     ul{
         width: 80%;
         display: flex;
@@ -80,12 +83,22 @@ const LayoutAssentos = styled.div`
 const LegendaAssentos = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
 
-    margin: 5px;
-    padding: 5px;
-
     gap: 5px;
+    margin: 20px 0;
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
 
+`
+const Cadeira = styled.div`
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    
+    background-color: ${props => props.color === "" ? '' : props.color};
 `

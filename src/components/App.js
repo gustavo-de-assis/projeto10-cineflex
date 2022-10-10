@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import GlobalStyle from "../assets/GlobalStyle";
 
 import Assentos from "./Assentos";
@@ -8,16 +8,18 @@ import Sessoes from "./Sessoes";
 import Topo from "./Topo"
 
 
-export default function App(){
-    return(
+export default function App() {
+    return (
         <BrowserRouter>
-            <GlobalStyle/>
-            <Topo/>
+            <GlobalStyle />
+            <Link to='/'>
+                <Topo />
+            </Link>
             <Routes>
-                <Route path="/" element={<Catalogo/>} />
-                <Route path="/sessoes/:idFilme" element={<Sessoes/> } />
-                <Route path="/assentos/:idSessao" element={<Assentos/> } />
-                <Route path="/ingresso" element={<Finalizar/>} />
+                <Route path="/" element={<Catalogo />} />
+                <Route path="/sessoes/:idFilme" element={<Sessoes />} />
+                <Route path="/assentos/:idSessao" element={<Assentos />} />
+                <Route path="/ingresso" element={<Finalizar />} />
             </Routes>
         </BrowserRouter>
     );
