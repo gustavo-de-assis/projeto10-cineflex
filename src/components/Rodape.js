@@ -1,11 +1,18 @@
 import styled from "styled-components"
 
-export default function Rodape({filme}){
+export default function Rodape({filme, horario, dia}){
     return(<LayoutRodape>
         <img src={filme.posterURL} alt={filme.title}/>
         <Textos>
             <h1>{filme.title}</h1>
-            <h1></h1>
+
+            {dia ?
+
+                <h1>{dia} - {horario} </h1>
+            :
+            <></>
+            }
+            
         </Textos>
 
     </LayoutRodape>)
@@ -33,6 +40,7 @@ const LayoutRodape = styled.div`
 `
 const Textos = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
     margin: auto;
 `

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Assento from "./Assento";
+import Rodape from "./Rodape";
 
 export default function Assentos() {
     const [assentos, setAssentos] = useState([]);
@@ -10,6 +11,7 @@ export default function Assentos() {
     const [escolhidos, setEscolhidos] = useState([]);
     const [comprador, setComprador] = useState("");
     const [cpfComprador, setCpfComprador] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
@@ -39,12 +41,12 @@ export default function Assentos() {
 
             const URL = `https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many`;
             axios.post(URL, solicitacao).then((ans) => {
-                console.log("Sucesso:", ans.data)
+                //enviar dados para a pag final
+                navigate("/ingresso")
             }).catch((err) => {
-                 console.log(err.response.data.message) 
+                 console.log(err.response.data) 
             })
 
-            console.log("pedido: ", solicitacao)
         }
     }
 
@@ -101,6 +103,8 @@ export default function Assentos() {
                     <button type="submit">Reservar Assentos</button>
                 </form>
             </Formulario>
+
+            <Rodape filme={assentos.movie} horario={assentos.name} dia={assentos.day.weekday}/>
 
         </>
     )
