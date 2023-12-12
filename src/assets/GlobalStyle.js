@@ -1,7 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-    html, body, div, span, applet, object, iframe,
+* {
+    @import url('https://fonts.googleapis.com/css2?family=Kalnia:wght@100;300;400;500;600;700&family=Luckiest+Guy&family=Shadows+Into+Light&display=swap');
+  }
+html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
     del, dfn, em, img, ins, kbd, q, s, samp,
@@ -20,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 100%;
         font: inherit;
         vertical-align: baseline;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     article, aside, details, figcaption, figure, 
@@ -28,8 +32,7 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
-        width: 375px;
-        height: 880px;
+        //height: 880px;
 
         font-family: roboto;
     }
@@ -51,6 +54,6 @@ const GlobalStyle = createGlobalStyle`
     a{
         text-decoration: none;
     }
-`
+`;
 
 export default GlobalStyle;
